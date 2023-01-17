@@ -12,6 +12,17 @@ from keras.models import Model
 import pickle
 
 
+def triplet_loss_t(self,y_true,y_pred):
+    anchor=y_pred[:,0:128]
+    pos=y_pred[:,128:256]
+    neg=y_pred[:,256:384]
+
+    positive_distance = K.sum(K.abs(anchor-pos), axis=1)
+    negative_distance = K.sum(K.abs(anchor-neg), axis=1)
+    probs=K.softmax([positive_distance,negative_distance],axis=0)
+    loss=K.mean(K.abs(probs[0])+K.abs(1.0-probs[1]))
+    return loss
+
 class Train:
     def __init__(self,images_path, batch_size=32):
         self.model = model.FinalModel(input_shape=(3,244,244))

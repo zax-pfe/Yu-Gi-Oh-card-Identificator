@@ -1,8 +1,6 @@
 import numpy as np
 import cv2
 import imgaug.augmenters as iaa
-import glob
-import pickle
 import random
 
 def padding_images(image):
@@ -69,6 +67,7 @@ def padding_images(image):
         return image
     
 augmentation = iaa.Sequential([
+    iaa.Resize({"height": 614, "width": 421}),
     iaa.Crop(px=(112, 52, 179, 52),), #top, right, bot, left
     iaa.Sometimes(0.75, iaa.GaussianBlur(sigma=(0, 3.0))),
     # iaa.Sometimes(0.25,iaa.OneOf([iaa.Dropout(p=(0, 0.1)),iaa.CoarseDropout(0.1, size_percent=0.1)])),
@@ -83,6 +82,7 @@ augmentation = iaa.Sequential([
 ])
 
 augmentation_anchor = iaa.Sequential([
+    iaa.Resize({"height": 614, "width": 421}),
 #     iaa.WithBrightnessChannels(iaa.Add(10)),
     iaa.Crop(px=(112, 52, 179, 52),), #top, right, bot, left
     iaa.Resize({"height": 244, "width": 244}),
@@ -115,7 +115,7 @@ def augment_img_iaa(path_img, positive, transpose_and_normalize = True):
         augmented_images = augmented_images[0]
 
     if transpose_and_normalize:
-        augmented_images=np.transpose(augmented_images,(2,0,1))
+        # augmented_images=np.transpose(augmented_images,(2,0,1))
         augmented_images=augmented_images.astype('float32')/255.0
 
 

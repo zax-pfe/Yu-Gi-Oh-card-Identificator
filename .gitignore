@@ -1,3 +1,5 @@
 cardDatabaseFull
 image_croped_2
-
+virtualenv
+archive
+__pycache__

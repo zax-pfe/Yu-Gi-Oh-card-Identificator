@@ -2,13 +2,24 @@ import cv2
 import numpy as np
 import functions
 import os
+from predict_functions import Predict
+from keras import backend as K
 
+threshold = 0.5
+interval = 0.2
+model_trained_path = 'archive\\triplet_model_b_and_w_img244_epoch_5.h5'
+dict_trained_path = 'archive\\dict_black_white_244_padded (2).pkl'
+
+predictor = Predict(model_trained_path,dict_trained_path,threshold,interval)
 
 #pour chaque image dans le fichier image
 for file in os.listdir('images'):
  
     img = cv2.imread("images\\" +file)
     resized,width, height = functions.return_resized_img_percent(img, 20)
+
+    card_plus_name, _, _=functions.return_resized_img_percent(img, 40)
+
     imgContour =resized.copy()
 
     
@@ -60,17 +71,24 @@ for file in os.listdir('images'):
         imgWarpColored = cv2.warpPerspective(resized, matrix, (width, height))
         imgWarpColored_original = cv2.warpPerspective(original, matrix_original, (width_original, height_original))
 
-        
-        
-    imgContours2 = functions.return_resized_img_size(imgContours2)
-    imgWarpColored = functions.return_resized_img_size(imgWarpColored)
-    imgcountours = functions.return_resized_img_size(imgcountours)
+    card_name = predictor.predict_card_name(imgWarpColored_original)
+    print(card_name[0][0]  )
+
+    point_for_card_plus_name = [[x * 2 for x in sublist] for sublist in point_list]
+    card_plus_name = functions.add_card_name(card_plus_name, card_name[0][0],point_for_card_plus_name)
+    cv2.imshow('card_plus_name', card_plus_name)
+    cv2.waitKey(0)
+
+
+    # imgContours2 = functions.return_resized_img_size(imgContours2)
+    # imgWarpColored = functions.return_resized_img_size(imgWarpColored)
+    # imgcountours = functions.return_resized_img_size(imgcountours)
 
  
-    imgStack = functions.stack_images(0.8, [imgContours2, imgWarpColored, imgcountours])
-    cv2.imwrite('image_croped\\'+file+'_croped.jpg', imgWarpColored_original)
+    # imgStack = functions.stack_images(0.8, [imgContours2, imgWarpColored, imgcountours])
+    # cv2.imwrite('image_croped\\'+file+'_croped.jpg', imgWarpColored_original)
     
-    # cv2.imshow('Result', imgContour)
-    cv2.imshow('Result', imgStack)
-    cv2.waitKey(0)
+    # # cv2.imshow('Result', imgContour)
+    # cv2.imshow('Result', imgStack)
+    # cv2.waitKey(0)
     cv2.destroyAllWindows()

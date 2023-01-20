@@ -127,6 +127,20 @@ def getCountours(img, imgCountours):
 
     return card_resized, contours, imgCountours
 
+def add_card_name(image, card_name, points_list):
+
+    print("point list", points_list)
+    cv2.putText(image, card_name, (points_list[0][0]+15,points_list[0][1]-15), cv2.FONT_HERSHEY_COMPLEX, 0.5 , (0,255,0), 2 )
+    cv2.line(image, points_list[0],points_list[2], (0,255,0),thickness=3,lineType=2)
+    cv2.line(image, points_list[2],points_list[3], (0,255,0),thickness=3,lineType=2)
+    cv2.line(image, points_list[1],points_list[0], (0,255,0),thickness=3,lineType=2)
+    cv2.line(image, points_list[3],points_list[1], (0,255,0),thickness=3,lineType=2)
+
+    return image
+
+
+
+
 def transform_for_contour_detection(resized):
     # add blur 
     imgBlur = cv2.GaussianBlur(resized, (7,7), 1) 

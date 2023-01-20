@@ -28,5 +28,10 @@ print(card_name[0])
 card_name = predictor.predict_card_name(image)
 print(card_name[0])
 
+def return_model_prediction(image):
+    card_name = predictor.predict_card_name(image)
+    return card_name[0]
+
+
 
 

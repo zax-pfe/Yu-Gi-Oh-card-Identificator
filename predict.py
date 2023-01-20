@@ -6,7 +6,7 @@ from keras import backend as K
 
 
 model_trained_path = 'archive\\triplet_model_b_and_w_img244_epoch_5.h5'
-dict_trained_path = 'archive\\dict_black_white_244_padded.pkl'
+dict_trained_path = 'archive\\dict_black_white_244_padded (2).pkl'
 threshold = 0.5
 interval = 0.2
 

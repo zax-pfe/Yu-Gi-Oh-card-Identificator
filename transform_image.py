@@ -92,7 +92,7 @@ augmentation_anchor = iaa.Sequential([
     
     
 
-def augment_img_iaa(path_img, positive, transpose_and_normalize = True):
+def augment_img_iaa(path_img, positive, transpose_and_normalize = True, image = None):
     """ This function will apply random transformation on an image
     - The first argument is the path of the image
     - The second argument is to say if the image we gonna transform is the positive image
@@ -100,8 +100,12 @@ def augment_img_iaa(path_img, positive, transpose_and_normalize = True):
     
     The transformation applyed are randomly : increse or deacrease brightness, add saturation,
     add contrast and crop and resize the card to keep only the image of the monster."""
-    
-    augmented_images = cv2.imread(path_img)
+
+    if path_img==None:
+        augmented_images = image
+    else:
+        augmented_images = cv2.imread(path_img)
+
     temp_list_4aug = [augmented_images]
 
     if positive:
@@ -122,7 +126,7 @@ def augment_img_iaa(path_img, positive, transpose_and_normalize = True):
     return augmented_images
 
 #To loacalize the mignature and resize the image
-def image_resizing(path_image_to_test, test_on_dataset = False):
-    image = augment_img_iaa(path_image_to_test, test_on_dataset, False)
+def image_resizing(path_image_to_test, test_on_dataset = False, image = None):
+    image = augment_img_iaa(path_image_to_test, test_on_dataset, transpose_and_normalize=False, image = image)
     return image
 

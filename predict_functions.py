@@ -62,3 +62,22 @@ class Predict:
                     
         list_card_name = sorted(list_card_name, key=lambda x: x[1], reverse=True)
         return list_card_name
+
+    def predict_card_name(self, image):
+        """ This function take an image an return a list of card names,
+    the cards names are sorted by the more revelant to the less revelant """
+        
+        list_card_name = []
+        img=transform_image.image_resizing(path_image_to_test=None, test_on_dataset=False, image=image)
+        encoded_img = self.encode_img(img)
+
+        for a in self.dict:
+            image_dict_encoded = self.dict[a]
+            dist,conf=self.confidence_value(encoded_img,image_dict_encoded)
+            if dist<self.threshold:
+                if conf > 0.0:
+                    list_card_name.append((a,conf))
+                    
+        list_card_name = sorted(list_card_name, key=lambda x: x[1], reverse=True)
+        return list_card_name
+

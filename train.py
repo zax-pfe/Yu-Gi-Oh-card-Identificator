@@ -10,7 +10,7 @@ images_path='cardDatabaseFull/*/*.jpg'
 batch_size = 8
 
 model_to_train = Train(images_path, batch_size=batch_size)
-# model_to_train.fit_and_save(steps_per_epoch=100,epochs=3)
+
 def data_gen():
     """ The data generator will give to the model 3 images, this first one is the anchor:
     so its a random image choosen in the dataset, the second is the positive:

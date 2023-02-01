@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from functions import Card_detection
+from detector_functions import Card_detection
 import os
 from predict_functions import Predict
 from keras import backend as K

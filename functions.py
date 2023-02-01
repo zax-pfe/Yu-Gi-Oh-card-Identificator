@@ -16,6 +16,7 @@ class Card_detection:
         dim = (width, height)
         # resize image
         resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+        # print("image resized to ",percent, " w :", width, " h : ", height)
         return resized, width, height
 
 
@@ -86,7 +87,7 @@ class Card_detection:
         return imgDil
 
     def return_scaned_card(self,path_image):
-
+        success = True
         img = cv2.imread(path_image)
         #we first reduce the size of the image to 20%
         resized,width, height = self.return_resized_img_percent(img, 20)
@@ -95,13 +96,15 @@ class Card_detection:
         self.card_plus_name, _, _=self.return_resized_img_percent(img, 40)
 
         height_original,width_original = img.shape[:2]
-            
+        
+
         """ Processing for card detection - resized """
         imgDil = self.transform_for_contour_detection(resized)
         # this function get the contours and create a pproximative bounding box
         contours, _ = cv2.findContours(imgDil, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
         # this fucntion is used to scan the card 
         biggest, _ = self.biggestContour(contours)
+        imgWarpColored_original=None
 
         if biggest.size !=0:
             biggest=self.reorder(biggest)
@@ -120,7 +123,15 @@ class Card_detection:
             matrix_original = cv2.getPerspectiveTransform(pts1_original, pts2_original)              
             imgWarpColored_original = cv2.warpPerspective(img, matrix_original, (width_original, height_original))
 
-        return imgWarpColored_original
+
+            return imgWarpColored_original, success
+
+        else:
+            success = False
+            return _, success
+
+        # cv2.imwrite(path_image+'croped.jpg', imgWarpColored_original)
+
 
 
     def card_prediction(self, card_name):
@@ -130,4 +141,20 @@ class Card_detection:
         cv2.imshow('card_plus_name', self.card_plus_name)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
+    
+    def error_detection(self, path_image):
+
+        img = cv2.imread(path_image)
+        img, _, _=self.return_resized_img_percent(img, 40)
+        height,width = img.shape[:2]
+
+        # print('height,width :', height,width)
+        cv2.putText(img, "error", (int(height/2),int(width/2)), cv2.FONT_HERSHEY_COMPLEX, 0.5 , self.color_text, 2 )
+        cv2.imshow('error', img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+
+
+
+
 

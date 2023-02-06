@@ -64,7 +64,7 @@ class Card_detection:
 
     def add_card_name(self,image, card_name, points_list):
 
-        cv2.putText(image, card_name, (points_list[0][0]+15,points_list[0][1]-15), cv2.FONT_HERSHEY_COMPLEX, 0.5 , self.color_text, 2 )
+        cv2.putText(image, card_name, (points_list[0][0]+15,points_list[0][1]-15), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , self.color_text, 2 )
         cv2.line(image, points_list[0],points_list[2], self.color_rectangle,thickness=3,lineType=2)
         cv2.line(image, points_list[2],points_list[3], self.color_rectangle,thickness=3,lineType=2)
         cv2.line(image, points_list[1],points_list[0], self.color_rectangle,thickness=3,lineType=2)
@@ -134,22 +134,29 @@ class Card_detection:
 
 
 
-    def card_prediction(self, card_name):
+    def card_prediction(self, card_name, setcode):
 
         point_for_card_plus_name = [[x * 2 for x in sublist] for sublist in self.point_list]
         self.card_plus_name = self.add_card_name(self.card_plus_name, card_name[0][0],point_for_card_plus_name)
+        self.card_plus_name = cv2.putText(self.card_plus_name, setcode, (point_for_card_plus_name[0][0]+30,point_for_card_plus_name[0][1]-30), cv2.FONT_HERSHEY_COMPLEX, 0.5 , self.color_text, 2 )
+
+
         cv2.imshow('card_plus_name', self.card_plus_name)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
     
-    def error_detection(self, path_image):
+    def error_detection(self, path_image, error_type):
 
         img = cv2.imread(path_image)
         img, _, _=self.return_resized_img_percent(img, 40)
         height,width = img.shape[:2]
 
         # print('height,width :', height,width)
-        cv2.putText(img, "error", (int(height/2),int(width/2)), cv2.FONT_HERSHEY_COMPLEX, 0.5 , self.color_text, 2 )
+        if error_type == 1:
+            cv2.putText(img, "error", (int(height/2),int(width/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , self.color_text, 2 )
+        else:
+            cv2.putText(img, "error detection", (int(height/2),int(width/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , self.color_text, 2 )
+
         cv2.imshow('error', img)
         cv2.waitKey(0)
         cv2.destroyAllWindows()

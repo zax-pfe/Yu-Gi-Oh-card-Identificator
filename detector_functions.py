@@ -86,9 +86,13 @@ class Card_detection:
 
         return imgDil
 
-    def return_scaned_card(self,path_image):
+    def return_scaned_card(self,path_image, image = None):
         success = True
-        img = cv2.imread(path_image)
+
+        if image!=None:
+            img = image
+        else:
+            img = cv2.imread(path_image)
         #we first reduce the size of the image to 20%
         resized,width, height = self.return_resized_img_percent(img, 20)
 
@@ -134,20 +138,27 @@ class Card_detection:
 
 
 
-    def card_prediction(self, card_name, setcode):
+    def card_prediction(self, card_name, setcode, mutiple = False):
 
         point_for_card_plus_name = [[x * 2 for x in sublist] for sublist in self.point_list]
         self.card_plus_name = self.add_card_name(self.card_plus_name, card_name[0][0],point_for_card_plus_name)
         self.card_plus_name = cv2.putText(self.card_plus_name, setcode, (point_for_card_plus_name[0][0]+30,point_for_card_plus_name[0][1]-30), cv2.FONT_HERSHEY_COMPLEX, 0.5 , self.color_text, 2 )
 
+        if mutiple == True:
+            return self.add_card_name
 
-        cv2.imshow('card_plus_name', self.card_plus_name)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        else:
+            cv2.imshow('card_plus_name', self.card_plus_name)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
     
-    def error_detection(self, path_image, error_type):
+    def error_detection(self, path_image, error_type, image=None, multiple=False):
 
-        img = cv2.imread(path_image)
+        if image!=None:
+            img = image
+        else:
+            img = cv2.imread(path_image)
+
         img, _, _=self.return_resized_img_percent(img, 40)
         height,width = img.shape[:2]
 
@@ -157,9 +168,12 @@ class Card_detection:
         else:
             cv2.putText(img, "error detection", (int(height/2),int(width/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , self.color_text, 2 )
 
-        cv2.imshow('error', img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        if multiple==True:
+            return img
+        else:
+            cv2.imshow('error', img)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
 
 
 

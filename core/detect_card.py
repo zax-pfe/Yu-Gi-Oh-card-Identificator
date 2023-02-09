@@ -89,7 +89,7 @@ class Card_detection:
     def return_scaned_card(self,path_image, image = None):
         success = True
 
-        if image!=None:
+        if path_image=='null':
             img = image
         else:
             img = cv2.imread(path_image)
@@ -138,23 +138,16 @@ class Card_detection:
 
 
 
-    def card_prediction(self, card_name, setcode, mutiple = False):
+    def card_prediction(self, card_name, setcode):
 
         point_for_card_plus_name = [[x * 2 for x in sublist] for sublist in self.point_list]
         self.card_plus_name = self.add_card_name(self.card_plus_name, card_name[0][0],point_for_card_plus_name)
         self.card_plus_name = cv2.putText(self.card_plus_name, setcode, (point_for_card_plus_name[0][0]+30,point_for_card_plus_name[0][1]-30), cv2.FONT_HERSHEY_COMPLEX, 0.5 , self.color_text, 2 )
+        return self.card_plus_name
 
-        if mutiple == True:
-            return self.add_card_name
+    def error_detection(self, path_image, error_type, image=None):
 
-        else:
-            cv2.imshow('card_plus_name', self.card_plus_name)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
-    
-    def error_detection(self, path_image, error_type, image=None, multiple=False):
-
-        if image!=None:
+        if path_image == 'null':
             img = image
         else:
             img = cv2.imread(path_image)
@@ -167,13 +160,7 @@ class Card_detection:
             cv2.putText(img, "error", (int(height/2),int(width/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , self.color_text, 2 )
         else:
             cv2.putText(img, "error detection", (int(height/2),int(width/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.5 , self.color_text, 2 )
-
-        if multiple==True:
-            return img
-        else:
-            cv2.imshow('error', img)
-            cv2.waitKey(0)
-            cv2.destroyAllWindows()
+        return img
 
 
 

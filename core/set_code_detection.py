@@ -1,4 +1,3 @@
-# from paddleocr import PaddleOCR 
 import cv2 
 
 class Detect_setcode:

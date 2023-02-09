@@ -1,8 +1,8 @@
 # YGO card Verification Using One Shot Learning
 
 #### Importing Libraries
-from train_functions import Train
-import transform_image
+from core.train import Train
+import core.transform_image as transform_image
 import numpy as np
 
 

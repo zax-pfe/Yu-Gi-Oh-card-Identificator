@@ -5,9 +5,9 @@ import random
 K.set_image_data_format('channels_first')
 import glob
 import random
-import transform_image
+import core.transform_image as transform_image
 import numpy as np
-import model
+import core.model as model
 from keras.models import Model
 import pickle
 

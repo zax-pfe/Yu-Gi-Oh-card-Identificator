@@ -1,7 +1,7 @@
 # YGO card Verification Using One Shot Learning
 
 #### Importing Libraries
-from predict_functions import Predict
+from core.predict_name import Predict
 from keras import backend as K
 import cv2
 

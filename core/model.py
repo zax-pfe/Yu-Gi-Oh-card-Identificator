@@ -1,7 +1,6 @@
 from tensorflow import keras
 from keras.layers import Conv2D, Activation, AveragePooling2D, MaxPooling2D, ZeroPadding2D, Input, concatenate
 from keras.layers.core import Lambda, Dense, Flatten
-# from keras.layers.normalization import BatchNormalization
 from keras import backend as K
 from keras.layers import *
 from keras.models import Model

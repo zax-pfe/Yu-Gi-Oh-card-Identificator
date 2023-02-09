@@ -1,16 +1,14 @@
 import numpy as np
 import keras
 import pickle
-import train_functions
-import transform_image
+import core.train as train
+import core.transform_image as transform_image
 from keras import backend as K
-
-
 
 class Predict:
     def __init__(self, model_trained_path, dict_trained_path, threshold, interval):
 
-        self.triplet_loss = train_functions.triplet_loss_t
+        self.triplet_loss = train.triplet_loss_t
         self.model = self.load_model(model_trained_path = model_trained_path)
         self.dict = self.load_dict(dict_trained_path = dict_trained_path)
         self.threshold = threshold
@@ -29,9 +27,7 @@ class Predict:
         return loaded_dict
 
     def encode_img(self, img1):
-        #img1=cv2.imread(path,1)
         img=img1[...,::-1]
-        # img=np.around(np.transpose(img,(2,0,1))/255,decimals=12)
         img=np.around(img/255,decimals=12)
 
         x_train=np.array([img])

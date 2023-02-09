@@ -1,0 +1,6 @@
+tensorflow==2.5.0
+opencv-python==4.7.0.68
+numpy==1.19.3
+imgaug==0.4.0
+protobuf==3.20.0
+paddleocr==2.6.1.2

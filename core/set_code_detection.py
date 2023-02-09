@@ -12,6 +12,7 @@ class Detect_setcode:
         self.height = self.img.shape[0]
 
     def crop_setcode(self):
+        """ We crop the image to keep only the area of the setcode """
         cropped_img = self.img[int(self.height*0.65):int(self.height*0.75), int(self.width*0.6):int(self.width*0.95)]
         return cropped_img
 

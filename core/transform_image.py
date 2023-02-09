@@ -70,7 +70,6 @@ augmentation = iaa.Sequential([
     iaa.Resize({"height": 614, "width": 421}),
     iaa.Crop(px=(112, 52, 179, 52),), #top, right, bot, left
     iaa.Sometimes(0.75, iaa.GaussianBlur(sigma=(0, 3.0))),
-    # iaa.Sometimes(0.25,iaa.OneOf([iaa.Dropout(p=(0, 0.1)),iaa.CoarseDropout(0.1, size_percent=0.1)])),
     iaa.AddToHueAndSaturation(value=(-10, 10), per_channel=True),
     iaa.Multiply((0.7,1.3)),
     iaa.LinearContrast((0.7,1.3)),
@@ -119,7 +118,6 @@ def augment_img_iaa(path_img, positive, transpose_and_normalize = True, image = 
         augmented_images = augmented_images[0]
 
     if transpose_and_normalize:
-        # augmented_images=np.transpose(augmented_images,(2,0,1))
         augmented_images=augmented_images.astype('float32')/255.0
 
 
@@ -131,6 +129,8 @@ def image_resizing(path_image_to_test, test_on_dataset = False, image = None):
     return image
 
 def divide_image(image_path):
+    """ if we want to use the identificator on several card for example in a binder,
+     we cut the image in 9 parts and then we ll analyse each part """
     
     img = cv2.imread(image_path)
 
@@ -146,6 +146,7 @@ def divide_image(image_path):
     return cells
 
 def colapse_image(cells):
+    """ Once the 9 parts are analysed we can colapse them to re create the original image with anotations"""
 
     top  = np.concatenate((cells[0], cells[1], cells[2]), axis=1)
     mid  = np.concatenate((cells[3], cells[4], cells[5]), axis=1)

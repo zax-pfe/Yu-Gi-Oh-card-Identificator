@@ -1,10 +1,10 @@
 import cv2 
+from paddleocr import PaddleOCR 
 
 class Detect_setcode:
 
-
-    def __init__(self,ocr_model):
-        self.ocr_model = ocr_model
+    def __init__(self):
+        self.ocr_model = PaddleOCR(lang='en')
 
     def read_image(self, img_path):
         self.img = cv2.imread(img_path)

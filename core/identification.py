@@ -1,12 +1,17 @@
 from keras import backend as K
 import core.transform_image as transform_image
+from core.detect_card import Card_detection
+from core.predict_name import Predict
+from core.set_code_detection import Detect_setcode
+
+
 
 class Card_identificator():
 
-    def __init__(self, card_detector, predictor,setcode_detector) -> None:
-        self.card_detector = card_detector
-        self.predictor = predictor
-        self.setcode_detector = setcode_detector
+    def __init__(self, model_trained_path, dict_trained_path,threshold,interval) -> None:
+        self.card_detector = Card_detection()
+        self.predictor = Predict(model_trained_path,dict_trained_path,threshold,interval)
+        self.setcode_detector = Detect_setcode()
     
     def identify_multiple_card(self, image_path):
         cells = transform_image.divide_image(image_path)

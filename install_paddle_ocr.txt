@@ -1,3 +1,5 @@
+
+## copy and execute this command lines ## 
+
 python -m pip install paddlepaddle==2.1.0 -i https://mirror.baidu.com/pypi/simple
-pip install paddleocr
 git clone https://github.com/PaddlePaddle/PaddleOCR

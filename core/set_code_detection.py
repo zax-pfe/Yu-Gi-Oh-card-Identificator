@@ -1,6 +1,8 @@
 import cv2 
 from paddleocr import PaddleOCR 
 
+# #Creation of the class setcode detector : this class detect and return the setcode of the card
+
 class Detect_setcode:
 
     def __init__(self):

@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 
+# # Creation of the card detector class : this class uses open cv to detect the contours of the card and create a scanned version of the card
 
 class Card_detection:
     """This class detect the yugioh card, this detection is made with opencv and line detection

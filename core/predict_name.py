@@ -5,6 +5,8 @@ import core.train as train
 import core.transform_image as transform_image
 from keras import backend as K
 
+# #Creation of the class predictor : This class predict the card name using the artwork of the card 
+
 class Predict:
     def __init__(self, model_trained_path, dict_trained_path, threshold, interval):
 

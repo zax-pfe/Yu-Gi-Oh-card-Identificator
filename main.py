@@ -20,6 +20,9 @@ image_path = 'images\WhatsApp Image 2023-01-13 at 10.19.22.jpeg'
 #get image with anotation, the name and the setcode of a given image 
 image, name, setcode = card_identificator.identify_card(image_path)
 
+
+print(image, name)
+
 #plot this image 
 cv2.imshow('full_image', image)
 cv2.waitKey(0)

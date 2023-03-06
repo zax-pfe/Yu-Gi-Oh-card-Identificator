@@ -4,7 +4,6 @@ virtualenvgpu
 virtualenv
 archive
 __pycache__
-images
 PaddleOCR
 image_croped
 multiple_images

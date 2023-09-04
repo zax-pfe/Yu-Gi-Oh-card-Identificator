@@ -13,8 +13,7 @@ One-shot learning is a powerful technique for recognizing objects with very limi
 
 ## Demo
 
-![Demo 1](DEMO_YGO_RECOG.jpeg)
-<img src="DEMO_YGO_RECOG_2.jpeg" alt="demo" width="200" height="150">
+<img src="ygo_demo.png" alt="demo" width="500" height="300">
 
 
 ## Card Detection and Recognition

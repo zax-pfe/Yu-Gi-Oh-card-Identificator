@@ -12,8 +12,9 @@ Welcome to the Yu-Gi-Oh Card Recognition project! This repository contains the c
 One-shot learning is a powerful technique for recognizing objects with very limited examples. In this project, we apply one-shot learning to recognize Yu-Gi-Oh cards using a deep learning model. Whether you're a Yu-Gi-Oh enthusiast or just interested in computer vision and machine learning, this project can help you get started with one-shot learning.
 
 ## Demo
-
-<img src="ygo_demo.png" alt="demo" width="500" height="300">
+<p align="center">
+<img src="ygo_demo.png" alt="demo" width="700" height="400">
+</p>
 
 
 ## Card Detection and Recognition
